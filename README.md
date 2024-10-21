@@ -231,11 +231,6 @@ Gender: <input type="radio" name="G"> Male<br></br>
 <input type="radio" name="G"> Female<br></br>
 <input type="radio" name="G"> Other<br></br>
 Our Service: <select name="service">
-    <option>1</option><br></br>
-    <option>2</option><br></br>
-    <option>3</option><br></br>
-    <option>4</option><br></br>
-    <option>5</option><br></br>
     
 </select><br></br>
 Comment: <textarea rows="10" cols="10"></textarea><br></br>
