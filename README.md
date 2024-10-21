@@ -26,7 +26,21 @@
             font-size: 12px;
             padding: 10px;
         }
-    </style>
+      .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 10px;
+            }
+            .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+        }
+      .navbar a:hover {
+            background-color: #555;
+        }
+   </style>
 <body>
      <marquee class="marquee" behavior="scroll" direction="left">
         Developer Mr. Mostakim
