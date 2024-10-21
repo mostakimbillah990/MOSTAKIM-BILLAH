@@ -19,12 +19,17 @@
             padding: 20px;
             border-radius: 10px;
         }
+      .marquee {
+            background-color: white;
+            color: black;
+            font-size: 12px; /* টেক্সট সাইজ */
+            padding: 10px;
+        }
     </style>
 <body>
-      <marquee direction="left" behavior="alternate" style="color:RGB(0,45,0); font-size: 10px;"> DEVOLEPER MR. MOSTAKIM
-       </marquee>
-       <h1>MOSTAKIM</h1>
-
-           </body>
+      <marquee class="marquee" behavior="scroll" direction="left">
+        Developer Mr. Mostakim
+    </marquee>
+</body>
       </head>
 </html>
