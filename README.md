@@ -8,6 +8,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            width:match;
             margin: 0;
             background-color: #f0f0f0;
         }
@@ -22,7 +23,7 @@
       .marquee {
             background-color: white;
             color: black;
-            font-size: 12px; /* টেক্সট সাইজ */
+            font-size: 12px;
             padding: 10px;
         }
     </style>
