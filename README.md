@@ -10,7 +10,7 @@
             height: 100vh;
             width:match;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: white;
         }
         h1 {
             background-color: black;
