@@ -34,6 +34,14 @@
       <audio height="500px" width="500px" controls>
         <source src="https://ia802708.us.archive.org/34/items/salliala/La-Ilaha-Illallah.mp3 " typr="audio/mp3">
       </audio>
+
+      <div class="navbar">
+        <a href="tel:+8801234567890">ফোন: +8801602528942</a>
+        <a href="https://www.facebook.com/mostakim.billah.200" target="_blank">MY Facebook</a>
+        <a href="https://wa.me/01602528942">Watsup</a>
+        <a href="https://youtube.com/@hacker_7t1tipsandtricks?si=zvsBVIuMxTk5aWYB" target="_blank">YouTube</a>
+    </div>
+    
 </body>
       </head>
 </html>
