@@ -1,61 +1,85 @@
-
-<html>
-      <head>
-             <title> My personal Website </title>
-<style>
-        body {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>tester</title>
+ <style>
+    body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff0a00, #ff7e40, #47ff40);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center ;
             height: 100vh;
-            width:match;
-            margin: 0;
-            background-color: white;
-        }
-        h1 {
-            background-color: black;
-            color: red;
-            font-size: 10px;
-            font-family: 'Comic Sans MS', cursive;
-            padding: 20px;
-            border-radius: 10px;
-        }
-      .marquee {
-            background-color: white;
+            margin: 100;
+            overflow: ;
             color: black;
-            font-size: 12px;
-            padding: 10px;
         }
-      .navbar {
-            display: flex;
-            justify-content: space-around;
-            background-color: #333;
-            padding: 10px;
+         .conteinar {
+            background: black;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 150px;
             }
-            .navbar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
+            
+  h1 {
+            color: #ffffff;
+             
+ }
+           .h {
+            background: black;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 150px;
+            }
+                 h1 {
+            color: #ffffff;
+             
+  }
+              input[type="text"], input[type="number"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: #00ffcc;
+            font-size: 16px;
+            outline: none;
+            text-shadow: 0 0 5px #00ffcc;
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
+            text-align : center;
         }
-      .navbar a:hover {
-            background-color: #555;
-        }
-   </style>
+ </style>
+</head>
 <body>
-     <marquee class="marquee" behavior="scroll" direction="left">
-        Developer Mr. Mostakim
-    </marquee>
-      <audio height="500px" width="500px" controls>
-        <source src="https://ia802708.us.archive.org/34/items/salliala/La-Ilaha-Illallah.mp3 " typr="audio/mp3">
-      </audio>
-
- <div class="navbar">
-        <a href="tel:+8801234567890">ফোন: +8801602528942</a>
-        <a href="https://www.facebook.com/mostakim.billah.200" target="_blank">MY Facebook</a>
-        <a href="https://wa.me/01602528942">Watsup</a>
-        <a href="https://youtube.com/@hacker_7t1tipsandtricks?si=zvsBVIuMxTk5aWYB" target="_blank">YouTube</a>
+ <div class="conteinar">
+  
+  
  </div>
-    
+ 
+ <div class="h">
+  
+ </div>
+ 
 </body>
-      </head>
+</html>
+
+
+
+<script></script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Page title</title>
+</head>
+<body>
+ 
+</body>
 </html>
