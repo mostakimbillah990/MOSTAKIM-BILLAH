@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নোট সার্চ সিস্টেম</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+   .menu-bar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+   .menu-content {
+            display: none;
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            padding: 10px;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .menu-content.visible {
+            display: block;
+        }
+
+   .menu-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menu-content ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+   .menu-content ul li:last-child {
+            border-bottom: none;
+        }
+
+   .menu-content ul li:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+   .form-container {
+            width: 90%;
+            max-width: 400px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+   .form-container input,
+        .form-container textarea,
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+   .form-container textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+   .form-container button {
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+   .form-container button:hover {
+            background: #2980b9;
+        }
+
+   .form-container h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .search-bar {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+   .search-bar input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+   .search-bar button {
+            width: 20%;
+            padding: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+   .search-bar button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-bar" id="menuBar">☰</div>
+    <div class="menu-content" id="menuContent">
+        <ul id="savedDataMenu">
+            <li class="empty-message">কোনো নোট নেই</li>
+        </ul>
+    </div>
+
+   <div class="form-container">
+        <h2 id="formTitle">নতুন নোট যোগ করুন</h2>
+        <input type="text" id="noteTitle" placeholder="শিরোনাম লিখুন">
+        <input type="text" id="noteSubject" placeholder="বিষয় লিখুন">
+        <textarea id="noteText" placeholder="আপনার নোট লিখুন"></textarea>
+        <input type="date" id="noteDate">
+        <button id="saveNoteButton">নোট সেভ করুন</button>
+    </div>
+
+   <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="শিরোনাম, তারিখ বা বিষয় লিখুন">
+        <button id="searchButton">সার্চ</button>
+    </div>
+
+   <script>
+        const menuBar = document.getElementById('menuBar');
+        const menuContent = document.getElementById('menuContent');
+        const savedDataMenu = document.getElementById('savedDataMenu');
+        const noteTitle = document.getElementById('noteTitle');
+        const noteSubject = document.getElementById('noteSubject');
+        const noteText = document.getElementById('noteText');
+        const noteDate = document.getElementById('noteDate');
+        const saveNoteButton = document.getElementById('saveNoteButton');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const formTitle = document.getElementById('formTitle');
+
+        let editIndex = null;
+
+        // মেনু টগল করা
+        menuBar.addEventListener('click', () => {
+            menuContent.classList.toggle('visible');
+            loadData();
+        });
+
+        // ডেটা লোড করা
+        function loadData(filteredData = null) {
+            const savedData = filteredData || JSON.parse(localStorage.getItem('savedData')) || [];
+            savedDataMenu.innerHTML = '';
+
+            if (savedData.length === 0) {
+                const emptyMessage = document.createElement('li');
+                emptyMessage.className = 'empty-message';
+                emptyMessage.textContent = 'কোনো নোট নেই';
+                savedDataMenu.appendChild(emptyMessage);
+                return;
+            }
+
+            savedData.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>শিরোনাম:</strong> ${item.title}<br>
+                    <strong>বিষয়:</strong> ${item.subject}<br>
+                    <strong>তারিখ:</strong> ${item.date}<br>
+                    <strong>নোট:</strong> ${item.text}
+                `;
+                savedDataMenu.appendChild(li);
+            });
+        }
+
+        // সার্চ ফাংশন
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.toLowerCase();
+            const savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+            const filteredData = savedData.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                item.subject.toLowerCase().includes(query) ||
+                item.date.toLowerCase().includes(query)
+            );
+            loadData(filteredData);
+        });
+
+        // প্রথমবার ডেটা লোড করা
+        loadData();
+    </script>
+</body>
+</html>
