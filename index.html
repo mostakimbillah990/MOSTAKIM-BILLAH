@@ -17,7 +17,7 @@
             margin: 0;
         }
 
-   .menu-bar {
+        .menu-bar {
             position: absolute;
             top: 20px;
             right: 20px;
@@ -29,44 +29,67 @@
             font-size: 18px;
         }
 
-   .menu-content {
+        .menu-content {
             display: none;
             position: absolute;
             top: 100px;
             right: 20px;
             background-color: #ffffff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 220px;
+            width: 300px;
             padding: 10px;
             border-radius: 8px;
             max-height: 300px;
             overflow-y: auto;
         }
+
         .menu-content.visible {
             display: block;
         }
 
-   .menu-content ul {
+        .menu-content ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .menu-content ul li {
             padding: 10px;
             border-bottom: 1px solid #ddd;
-            cursor: pointer;
+            position: relative;
         }
 
-   .menu-content ul li:last-child {
+        .menu-content ul li:last-child {
             border-bottom: none;
         }
 
-   .menu-content ul li:hover {
+        .menu-content ul li:hover {
             background-color: #3498db;
             color: white;
         }
 
-   .form-container {
+        .action-buttons {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-buttons button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .action-buttons button:hover {
+            background: #2980b9;
+        }
+
+        .form-container {
             width: 90%;
             max-width: 400px;
             background: #ffffff;
@@ -76,7 +99,7 @@
             margin-top: 20px;
         }
 
-   .form-container input,
+        .form-container input,
         .form-container textarea,
         .form-container button {
             width: 100%;
@@ -86,12 +109,12 @@
             border: 1px solid #ddd;
         }
 
-   .form-container textarea {
+        .form-container textarea {
             resize: vertical;
             height: 100px;
         }
 
-   .form-container button {
+        .form-container button {
             background: #3498db;
             color: white;
             border: none;
@@ -99,15 +122,16 @@
             font-weight: bold;
         }
 
-   .form-container button:hover {
+        .form-container button:hover {
             background: #2980b9;
         }
 
-   .form-container h2 {
+        .form-container h2 {
             text-align: center;
             margin-bottom: 10px;
             color: #2c3e50;
         }
+
         .search-bar {
             margin: 20px 0;
             display: flex;
@@ -116,14 +140,14 @@
             max-width: 400px;
         }
 
-   .search-bar input {
+        .search-bar input {
             width: 80%;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
 
-   .search-bar button {
+        .search-bar button {
             width: 20%;
             padding: 10px;
             background: #3498db;
@@ -133,7 +157,7 @@
             cursor: pointer;
         }
 
-   .search-bar button:hover {
+        .search-bar button:hover {
             background: #2980b9;
         }
     </style>
@@ -141,12 +165,10 @@
 <body>
     <div class="menu-bar" id="menuBar">☰</div>
     <div class="menu-content" id="menuContent">
-        <ul id="savedDataMenu">
-            <li class="empty-message">কোনো নোট নেই</li>
-        </ul>
+        <ul id="savedDataMenu"></ul>
     </div>
 
-   <div class="form-container">
+    <div class="form-container">
         <h2 id="formTitle">নতুন নোট যোগ করুন</h2>
         <input type="text" id="noteTitle" placeholder="শিরোনাম লিখুন">
         <input type="text" id="noteSubject" placeholder="বিষয় লিখুন">
@@ -155,12 +177,12 @@
         <button id="saveNoteButton">নোট সেভ করুন</button>
     </div>
 
-   <div class="search-bar">
+    <div class="search-bar">
         <input type="text" id="searchInput" placeholder="শিরোনাম, তারিখ বা বিষয় লিখুন">
         <button id="searchButton">সার্চ</button>
     </div>
 
-   <script>
+    <script>
         const menuBar = document.getElementById('menuBar');
         const menuContent = document.getElementById('menuContent');
         const savedDataMenu = document.getElementById('savedDataMenu');
@@ -187,10 +209,7 @@
             savedDataMenu.innerHTML = '';
 
             if (savedData.length === 0) {
-                const emptyMessage = document.createElement('li');
-                emptyMessage.className = 'empty-message';
-                emptyMessage.textContent = 'কোনো নোট নেই';
-                savedDataMenu.appendChild(emptyMessage);
+                savedDataMenu.innerHTML = '<li>কোনো নোট নেই</li>';
                 return;
             }
 
@@ -202,11 +221,75 @@
                     <strong>তারিখ:</strong> ${item.date}<br>
                     <strong>নোট:</strong> ${item.text}
                 `;
+
+                const actionButtons = document.createElement('div');
+                actionButtons.className = 'action-buttons';
+
+                const editButton = document.createElement('button');
+                editButton.textContent = 'এডিট';
+                editButton.addEventListener('click', () => editNote(index));
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'ডিলিট';
+                deleteButton.addEventListener('click', () => deleteNote(index));
+
+                actionButtons.appendChild(editButton);
+                actionButtons.appendChild(deleteButton);
+                li.appendChild(actionButtons);
+
                 savedDataMenu.appendChild(li);
             });
         }
 
-        // সার্চ ফাংশন
+        function saveNote() {
+            const savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+            const note = {
+                title: noteTitle.value,
+                subject: noteSubject.value,
+                text: noteText.value,
+                date: noteDate.value
+            };
+
+            if (editIndex !== null) {
+                savedData[editIndex] = note;
+                editIndex = null;
+                formTitle.textContent = 'নতুন নোট যোগ করুন';
+            } else {
+                savedData.push(note);
+            }
+
+            localStorage.setItem('savedData', JSON.stringify(savedData));
+            loadData();
+            clearForm();
+        }
+
+        function editNote(index) {
+            const savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+            const note = savedData[index];
+
+            noteTitle.value = note.title;
+            noteSubject.value = note.subject;
+            noteText.value = note.text;
+            noteDate.value = note.date;
+
+            formTitle.textContent = 'নোট এডিট করুন';
+            editIndex = index;
+        }
+
+        function deleteNote(index) {
+            const savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+            savedData.splice(index, 1);
+            localStorage.setItem('savedData', JSON.stringify(savedData));
+            loadData();
+        }
+
+        function clearForm() {
+            noteTitle.value = '';
+            noteSubject.value = '';
+            noteText.value = '';
+            noteDate.value = '';
+        }
+
         searchButton.addEventListener('click', () => {
             const query = searchInput.value.toLowerCase();
             const savedData = JSON.parse(localStorage.getItem('savedData')) || [];
@@ -218,7 +301,7 @@
             loadData(filteredData);
         });
 
-        // প্রথমবার ডেটা লোড করা
+        saveNoteButton.addEventListener('click', saveNote);
         loadData();
     </script>
 </body>
